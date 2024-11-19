@@ -14,10 +14,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Serve the HTML file
+      # Step 2: Serve the HTML file from the current directory
       - name: Serve HTML
         run: |
-          cd D:\action
           python -m http.server 8080 &
           timeout 5
-          curl http://localhost:8080/index.html
+          curl http://localhost:8080/action/index.html
