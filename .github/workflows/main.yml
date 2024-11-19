@@ -19,6 +19,7 @@ jobs:
           python-version: '3.x'
 
       - name: Serve HTML
+        shell: bash
         run: |
           python -m http.server 8080 &
           for i in {1..10}; do
