@@ -1,0 +1,23 @@
+name: Serve HTML File on Windows
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  serve-html:
+    runs-on: windows-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Serve the HTML file
+      - name: Serve HTML
+        run: |
+          cd Week-3/Day-3
+          python -m http.server 8080 &
+          timeout 5
+          curl http://localhost:8080/index.html
