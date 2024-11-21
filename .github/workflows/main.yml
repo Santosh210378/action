@@ -1,4 +1,4 @@
-name: Serve HTML File on Windows
+name: Deploy HTML File to GitHub Pages
 
 on:
   push:
@@ -6,24 +6,15 @@ on:
       - main
 
 jobs:
-  serve-html:
-    runs-on: windows-latest
+  deploy:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v3
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          python-version: '3.x'
-
-      - name: Serve HTML
-        shell: bash
-        run: |
-          python -m http.server 8080 &
-          for i in {1..10}; do
-            curl -s http://localhost:8080/index.html && break
-            echo "Waiting for server to start..."
-            sleep 1
-          done
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./ # Path to your index.html file
